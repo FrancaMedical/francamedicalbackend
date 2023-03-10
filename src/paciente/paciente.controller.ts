@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Delete, Param } from "@nestjs/common";
+import { Controller, Get, Post, Body, Put, Delete } from "@nestjs/common";
 import { ParamId } from "../decorator/param-id.decorator";
 import { CreatePacienteDTO } from "./dto/paciente.create.dto";
 import { UpdatePacienteDTO } from "./dto/paciente.update.dto";
@@ -14,7 +14,7 @@ export class PacienteController {
     }
 
     @Get(':id')
-    async getById(@Param('id') id: string) {
+    async getById(@ParamId() id: string) {
         return this.pacienteService.getById(id)
     }
 
@@ -24,12 +24,12 @@ export class PacienteController {
     }
 
     @Put(':id')
-    async update(@Param('id') id: string,@Body() data: UpdatePacienteDTO) {
+    async update(@ParamId() id: string,@Body() data: UpdatePacienteDTO) {
         return this.pacienteService.update(id, data)
     }
 
     @Delete(':id') 
-    async delete(@Param('id') id: string) {
+    async delete(@ParamId() id: string) {
         return this.pacienteService.delete(id)
     }
 }
