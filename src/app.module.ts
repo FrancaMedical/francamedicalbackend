@@ -5,8 +5,8 @@ import { PacienteModule } from './paciente/paciente.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://gabriel:rVbkSr2xD3DabNfp@cluster0.c4onnqj.mongodb.net/test'),
-    ConfigModule.forRoot({envFilePath: ['.development.env', '.env'], isGlobal: true,}),
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGO_URL),
     PacienteModule
   ],
 })

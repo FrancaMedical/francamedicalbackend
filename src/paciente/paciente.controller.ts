@@ -24,7 +24,7 @@ export class PacienteController {
     }
 
     @Put(':id')
-    async update(@Param('id') id: string, data: UpdatePacienteDTO) {
+    async update(@Param('id') id: string,@Body() data: UpdatePacienteDTO) {
         return this.pacienteService.update(id, data)
     }
 
