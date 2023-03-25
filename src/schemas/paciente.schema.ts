@@ -1,8 +1,19 @@
 import * as mongoose from 'mongoose';
 
+export const addressSchema = new mongoose.Schema({
+    cep: String,
+    rua: String,
+    numero: String,
+    bairro: String,
+    cidade: String,
+    estado: String
+})
+
 export const PacienteSchema = new mongoose.Schema({
     nome: String,
-    email: String,
+    cpf: String,
+    dataNascimento: String,
     tel: Number,
-    cpf: String
+    role: Number,
+    endereco: [addressSchema]
 })
