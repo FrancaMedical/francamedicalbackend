@@ -1,7 +1,7 @@
-import { IsString, IsNumber, IsDateString, IsOptional } from "class-validator";
+import { IsString, IsDateString, IsOptional, IsNumber } from "class-validator";
 import { Document } from "mongoose";
 
-export class CreatePacienteDTO extends Document {
+export class CreateMedicoDTO extends Document {
     @IsString()
     nome: string
 
@@ -20,5 +20,13 @@ export class CreatePacienteDTO extends Document {
     @IsOptional()
     @IsString()
     endereco: string[]
-    
+
+    @IsString()
+    password: string
+
+    @IsString()
+    especialidade: string
+
+    @IsString()
+    crm: string
 }

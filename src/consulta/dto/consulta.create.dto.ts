@@ -11,7 +11,7 @@ export class CreateConsultaDTO extends Document {
     @IsDateString()
     dataConsulta: string;
 
-    @IsString()
+    @IsDateString()
     horario: string;
 
     @IsString()
