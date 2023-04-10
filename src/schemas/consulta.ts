@@ -5,5 +5,5 @@ export class Consulta extends Document {
     especialidade: string;
     dataConsulta: string;
     horario: string;
-    descricao: string;
+    descricao?: string;
 }

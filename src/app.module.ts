@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConsultaModule } from './consulta/consult.module';
 import { MedicoModule } from './medico/medico.module';
 import { PacienteModule } from './paciente/paciente.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { PacienteModule } from './paciente/paciente.module';
     MongooseModule.forRoot(process.env.MONGO_URL),
     PacienteModule,
     ConsultaModule,
-    MedicoModule
+    MedicoModule,
+    AuthModule
   ],
 })
 export class AppModule {}
