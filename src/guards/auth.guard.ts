@@ -18,11 +18,12 @@ export class AuthGuard implements CanActivate {
           const data = this.authService.checkToken(
             (authorization ?? '').split(' ')[1],
           );
+          
           request.tokenPayload = data;
-    
           request.user = await this.medicoService.getById(data.id);
     
-          return true;
+          return request.user;
+          ;
         } catch (e) {
           return false;
         }
