@@ -7,6 +7,7 @@ import { PacienteService } from './paciente.service';
 @Module({
   imports: [MongooseModule.forFeature([{name: 'CreatePacienteDTO', schema: PacienteSchema}])],
   controllers: [PacienteController],
-  providers: [PacienteService]
+  providers: [PacienteService],
+  exports: [PacienteService]
 })
 export class PacienteModule {}

@@ -5,7 +5,7 @@ import { ConsultaController } from "./consulta.controller";
 import { ConsultaService } from "./consulta.service";
 
 @Module({
-    imports: [MongooseModule.forFeature([{name: 'CreatedConsultaDTO', schema: ConsultaSchema}])],
+    imports: [MongooseModule.forFeature([{name: 'CreateConsultaDTO', schema: ConsultaSchema}])],
   controllers: [ConsultaController],
   providers: [ConsultaService]
 })

@@ -3,6 +3,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { CreateMedicoDTO } from "./dto/medico.create.dto";
 import { UpdateMedicoDTO } from "./dto/medico.update.dto";
+import * as bcrypt from 'bcrypt';
 import { Model } from "mongoose";
 
 @Injectable()
@@ -19,6 +20,9 @@ export class MedicoService {
     }
 
     async create(data: CreateMedicoDTO) {
+        const salt = await bcrypt.genSalt();
+        data.password = await bcrypt.hash(data.password, salt);
+        
         const createdNew = new this.medicoModel(data);
 
         return await createdNew.save()
