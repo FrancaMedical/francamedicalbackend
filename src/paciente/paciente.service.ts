@@ -1,7 +1,8 @@
+import { Model } from "mongoose";
+import * as bcrypt from 'bcrypt';
+import { InjectModel } from "@nestjs/mongoose";
 import { NotFoundException } from "@nestjs/common";
 import { Injectable } from "@nestjs/common/decorators";
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
 import { CreatePacienteDTO } from "./dto/paciente.create.dto";
 import { UpdatePacienteDTO } from "./dto/paciente.update.dto";
 
@@ -19,6 +20,9 @@ export class PacienteService {
     }
 
     async create(data: CreatePacienteDTO) {
+        const salt = await bcrypt.genSalt();
+        data.password = await bcrypt.hash(data.password, salt);
+
         const createdNew = new this.pacienteModel(data);
 
         return await createdNew.save()

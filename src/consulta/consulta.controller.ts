@@ -8,7 +8,7 @@ import { Role } from "../enums/role.enum";
 import { AuthGuard } from "../guards/auth.guard";
 import { RoleGuard } from "../guards/role.guard";
 
-
+@Roles(Role.Medico)
 @UseGuards(AuthGuard, RoleGuard)
 @Controller('consulta')
 export class ConsultaController {
@@ -19,24 +19,23 @@ export class ConsultaController {
         return this.consultaService.getAll()
     }
 
+    @Roles(Role.Paciente)
     @Get(':id')
     async getById(@ParamId() id: string) {
         return this.consultaService.getById(id)
     }
 
-    @Roles(Role.Medico)
+    
     @Post()
     async create(@Body() data: CreateConsultaDTO) {
         return this.consultaService.create(data)
     }
     
-    @Roles(Role.Medico)
     @Put(':id')
     async update(@ParamId() id: string,@Body() data: UpdateConsultaDTO) {
         return this.consultaService.update(id, data)
     }
     
-    @Roles(Role.Medico)
     @Delete(':id') 
     async delete(@ParamId() id: string) {
         return this.consultaService.delete(id)

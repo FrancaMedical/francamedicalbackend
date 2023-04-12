@@ -1,4 +1,4 @@
-import { IsString, IsNumber, IsDateString, IsOptional } from "class-validator";
+import { IsString, IsNumber, IsDateString, IsOptional, MinLength, MaxLength } from "class-validator";
 import { Document } from "mongoose";
 
 export class CreatePacienteDTO extends Document {
@@ -20,5 +20,9 @@ export class CreatePacienteDTO extends Document {
     @IsOptional()
     @IsString()
     endereco: string[]
-    
+
+    @IsString()
+    @MinLength(6)
+    @MaxLength(12)
+    password: string
 }

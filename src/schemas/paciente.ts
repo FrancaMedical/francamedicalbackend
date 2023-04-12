@@ -6,5 +6,6 @@ export class Paciente extends Document {
     cpf: string;
     role: number;
     dataNascimento: string;
-    endereco: string[]
+    endereco: string[];
+    password: string
 }

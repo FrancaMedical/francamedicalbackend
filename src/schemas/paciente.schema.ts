@@ -15,5 +15,6 @@ export const PacienteSchema = new mongoose.Schema({
     dataNascimento: String,
     tel: Number,
     role: Number,
-    endereco: [addressSchema]
+    endereco: [addressSchema],
+    password: String
 })
