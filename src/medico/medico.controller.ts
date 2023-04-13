@@ -1,13 +1,18 @@
-import { Controller, Get, Post, Delete, Body, Put } from "@nestjs/common";
+import { Controller, Get, Post, Delete, Body, Put, UseGuards } from "@nestjs/common";
 import { MedicoService } from "./medico.service";
 import { ParamId } from "../decorator/param-id.decorator";
 import { CreateMedicoDTO } from "./dto/medico.create.dto";
 import { UpdateMedicoDTO } from "./dto/medico.update.dto";
+import { AuthGuard } from "../guards/auth.guard";
+import { RoleGuard } from "../guards/role.guard";
+import { Roles } from "../decorator/role.decorator";
+import { Role } from "../enums/role.enum";
 
+@UseGuards(AuthGuard, RoleGuard)
 @Controller('medico')
 export class MedicoController {
     constructor(private readonly medicoService: MedicoService) {}
-
+    
     @Get()
     async getAll() {
         return this.medicoService.getAll()
@@ -23,6 +28,8 @@ export class MedicoController {
         return this.medicoService.create(data)
     }
 
+    
+    @Roles(Role.Medico)
     @Put(':id')
     async update(@ParamId() id: string,@Body() data: UpdateMedicoDTO) {
         return this.medicoService.update(id, data)
