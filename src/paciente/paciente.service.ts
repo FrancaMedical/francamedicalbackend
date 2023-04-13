@@ -1,10 +1,10 @@
 import { Model } from "mongoose";
-import * as bcrypt from 'bcrypt';
 import { InjectModel } from "@nestjs/mongoose";
 import { NotFoundException } from "@nestjs/common";
 import { Injectable } from "@nestjs/common/decorators";
 import { CreatePacienteDTO } from "./dto/paciente.create.dto";
 import { UpdatePacienteDTO } from "./dto/paciente.update.dto";
+import {Password} from '../utils/random.password'
 
 @Injectable()
 export class PacienteService {
@@ -20,8 +20,8 @@ export class PacienteService {
     }
 
     async create(data: CreatePacienteDTO) {
-        const salt = await bcrypt.genSalt();
-        data.password = await bcrypt.hash(data.password, salt);
+        const password = new Password()
+        data.password = password.gerar()
 
         const createdNew = new this.pacienteModel(data);
 
@@ -41,7 +41,7 @@ export class PacienteService {
     }
 
     async exists(id: string) {
-        if(!(await this.pacienteModel.count({_id: id})))
+        if(!(await this.pacienteModel.findById({_id: id})))
         throw new NotFoundException('O usuário não existe.');
     }
 }
