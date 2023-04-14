@@ -19,13 +19,11 @@ export class ConsultaController {
         return this.consultaService.getAll()
     }
 
-    @Roles(Role.Paciente)
     @Get(':id')
     async getById(@ParamId() id: string) {
         return this.consultaService.getById(id)
     }
 
-    
     @Post()
     async create(@Body() data: CreateConsultaDTO) {
         return this.consultaService.create(data)
