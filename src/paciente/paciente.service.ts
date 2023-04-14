@@ -5,6 +5,7 @@ import { Injectable } from "@nestjs/common/decorators";
 import { CreatePacienteDTO } from "./dto/paciente.create.dto";
 import { UpdatePacienteDTO } from "./dto/paciente.update.dto";
 import {Password} from '../utils/random.password'
+import { CPF } from "../utils/validate.cpf";
 
 @Injectable()
 export class PacienteService {
@@ -15,16 +16,22 @@ export class PacienteService {
     }
 
     async getById(id: string) {
-        this.exists(id)
+        this.exists(id);
+
         return await this.pacienteModel.findById(id).exec()
     }
 
     async create(data: CreatePacienteDTO) {
         const password = new Password()
+        const cpfvalid = new CPF()
         data.password = password.gerar()
+        
+        this.cpfExists(data.cpf)
+        if(!cpfvalid.validation(data.cpf)){
+            throw new NotFoundException('CPF inválido.');
+        }
 
         const createdNew = new this.pacienteModel(data);
-
         return await createdNew.save()
     }
 
@@ -41,7 +48,13 @@ export class PacienteService {
     }
 
     async exists(id: string) {
-        if(!(await this.pacienteModel.findById({_id: id})))
-        throw new NotFoundException('O usuário não existe.');
+        if(!(await this.pacienteModel.findById({_id: id}))){
+            throw new NotFoundException('O usuário não existe.');
+        }
+    }
+    async cpfExists(cpf: string) {
+        if((await this.pacienteModel.findOne({cpf: cpf}))){
+            throw new NotFoundException('CPF já cadastrado.');
+        }
     }
 }
