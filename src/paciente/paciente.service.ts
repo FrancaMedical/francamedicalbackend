@@ -26,9 +26,11 @@ export class PacienteService {
         const cpfvalid = new CPF()
         data.password = password.gerar()
         
-        this.cpfExists(data.cpf)
         if(!cpfvalid.validation(data.cpf)){
             throw new NotFoundException('CPF inválido.');
+        }
+        if(this.cpfExists(data.cpf)){
+            throw new NotFoundException('CPF já cadastrado.');
         }
 
         const createdNew = new this.pacienteModel(data);
@@ -53,8 +55,6 @@ export class PacienteService {
         }
     }
     async cpfExists(cpf: string) {
-        if((await this.pacienteModel.findOne({cpf: cpf}))){
-            throw new NotFoundException('CPF já cadastrado.');
-        }
+        return await this.pacienteModel.findOne({cpf: cpf})
     }
 }
