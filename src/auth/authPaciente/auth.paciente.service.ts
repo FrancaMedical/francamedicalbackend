@@ -2,7 +2,7 @@ import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/
 import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Paciente } from '../../schemas/paciente';
+import { Paciente } from '../../../schemas/paciente';
 import * as bcrypt from 'bcrypt';
 import { CreatePacienteDTO } from '../../paciente/dto/paciente.create.dto';
 import { AuthRegisterPacienteDTO } from '../dtos/auth-register-paciente.dto';

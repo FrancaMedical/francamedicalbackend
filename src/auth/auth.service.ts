@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateMedicoDTO } from '../medico/dto/medico.create.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { Medico } from '../schemas/medico';
+import { Medico } from '../../schemas/medico';
 import * as bcrypt from 'bcrypt';
 import { AuthRegisterMedicoDTO } from './dtos/auth-register-medico.dto';
 

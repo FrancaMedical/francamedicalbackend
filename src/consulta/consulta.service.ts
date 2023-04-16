@@ -14,7 +14,7 @@ export class ConsultaService{
     }
 
     async getById(id: string) {
-        this.exists(id)
+        await this.exists(id)
         return await this.consultaModel.findById(id).exec()
     }
 
@@ -25,19 +25,19 @@ export class ConsultaService{
     }
 
     async update(id: string, data: UpdateConsultaDTO) {
-        this.exists(id)
+        await this.exists(id)
         await this.consultaModel.updateOne({_id: id}, data).exec();
 
         return this.getById(id)
     }
 
     async delete(id: string) {
-        this.exists(id)
+        await this.exists(id)
         return this.consultaModel.deleteOne({_id: id}).exec()
     }
 
     async exists(id: string) {
         if(!(await this.consultaModel.count({_id: id})))
-        throw new NotFoundException('A consulta não existe.');
+        throw new NotFoundException('A consulta não cadastrada.');
     }
 }

@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { PacienteModule } from '../../paciente/paciente.module';
 import { ConsultaModule } from '../../consulta/consulta.module';
-import { PacienteSchema } from '../../schemas/paciente.schema';
+import { PacienteSchema } from '../../../schemas/paciente.schema';
 import { AuthService } from './auth.paciente.service';
 import { AuthController } from './auth.paciente.controller';
 import { AuthModule } from '../auth.module';

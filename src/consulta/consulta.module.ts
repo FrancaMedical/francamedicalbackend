@@ -1,6 +1,6 @@
 import { Module, forwardRef } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
-import { ConsultaSchema } from "../schemas/consulta.schema";
+import { ConsultaSchema } from "../../schemas/consulta.schema";
 import { ConsultaController } from "./consulta.controller";
 import { ConsultaService } from "./consulta.service";
 import { AuthModule } from "../auth/auth.module";

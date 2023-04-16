@@ -5,7 +5,7 @@ import { AuthController } from './auth.controller';
 import { MedicoModule } from '../medico/medico.module';
 import { PacienteModule } from '../paciente/paciente.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MedicoSchema } from '../schemas/medico.schema';
+import { MedicoSchema } from '../../schemas/medico.schema';
 import { ConsultaModule } from '../consulta/consulta.module';
 import { ConfigModule } from '@nestjs/config';
 

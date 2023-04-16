@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PacienteSchema } from '../schemas/paciente.schema';
+import { PacienteSchema } from '../../schemas/paciente.schema';
 import { PacienteController } from './paciente.controller';
 import { PacienteService } from './paciente.service';
 

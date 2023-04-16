@@ -15,7 +15,7 @@ export class MedicoService {
     }
 
     async getById(id: string) {
-        this.exists(id)
+        await this.exists(id)
         return await this.medicoModel.findById(id).exec()
     }
 
@@ -29,14 +29,14 @@ export class MedicoService {
     }
 
     async update(id: string, data: UpdateMedicoDTO) {
-        this.exists(id)
+        await this.exists(id)
         await this.medicoModel.updateOne({_id: id}, data).exec();
 
         return this.getById(id)
     }
 
     async delete(id: string) {
-        this.exists(id)
+        await this.exists(id)
         return this.medicoModel.deleteOne({_id: id}).exec()
     }
 

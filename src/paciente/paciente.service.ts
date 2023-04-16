@@ -1,6 +1,6 @@
 import { Model } from "mongoose";
 import { InjectModel } from "@nestjs/mongoose";
-import { NotFoundException } from "@nestjs/common";
+import { NotAcceptableException, NotFoundException } from "@nestjs/common";
 import { Injectable } from "@nestjs/common/decorators";
 import { CreatePacienteDTO } from "./dto/paciente.create.dto";
 import { UpdatePacienteDTO } from "./dto/paciente.update.dto";
@@ -16,8 +16,7 @@ export class PacienteService {
     }
 
     async getById(id: string) {
-        this.exists(id);
-
+        await this.exists(id)
         return await this.pacienteModel.findById(id).exec()
     }
 
@@ -28,32 +27,37 @@ export class PacienteService {
             data.password = password.gerar()
 
             if (!cpfvalid.validation(data.cpf)) {
-                throw new NotFoundException('CPF inválido.');
+                throw new NotAcceptableException('CPF inválido.');
             }
 
             const createdNew = new this.pacienteModel(data);
             return await createdNew.save()
         } catch (error) {
             if(error.code === 11000){
-                throw new NotFoundException('CPF já cadastrado.')
+                throw new NotAcceptableException('CPF já cadastrado.')
             }
-            throw new NotFoundException(error)
+            throw new NotAcceptableException(error)
         }
     }
 
     async update(id: string, data: UpdatePacienteDTO) {
-        this.exists(id)
-        await this.pacienteModel.updateOne({ _id: id }, data).exec();
-
-        return this.getById(id)
+        try {
+            await this.exists(id)
+            await this.pacienteModel.updateOne({ _id: id }, data).exec();
+    
+            return this.getById(id)   
+        } catch (error) {
+            throw new NotFoundException(error)
+        }
     }
 
     async delete(id: string) {
+        await this.exists(id)
         return this.pacienteModel.deleteOne({ _id: id }).exec()
     }
 
     async exists(id: string) {
-        if (!(await this.pacienteModel.findById({ _id: id }))) {
+        if (!(await this.pacienteModel.count({ _id: id }))) {
             throw new NotFoundException('O usuário não existe.');
         }
     }
