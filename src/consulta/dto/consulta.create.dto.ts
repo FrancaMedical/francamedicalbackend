@@ -1,4 +1,4 @@
-import { IsString, IsDateString, IsOptional } from "class-validator";
+import { IsString, IsOptional } from "class-validator";
 import { Document } from "mongoose";
 
 export class CreateConsultaDTO extends Document {
@@ -8,10 +8,10 @@ export class CreateConsultaDTO extends Document {
     @IsString()
     especialidade: string;
     
-    @IsDateString()
+    @IsString()
     dataConsulta: string;
 
-    @IsDateString()
+    @IsString()
     horario: string;
 
     @IsString()

@@ -1,4 +1,4 @@
-import { IsString, IsDateString, IsOptional, IsNumber } from "class-validator";
+import { IsString, IsOptional, IsNumber } from "class-validator";
 import { Document } from "mongoose";
 
 export class CreateMedicoDTO extends Document {
@@ -11,7 +11,7 @@ export class CreateMedicoDTO extends Document {
     @IsString()
     cpf: string
 
-    @IsDateString()
+    @IsString()
     dataNascimento: string
 
     @IsNumber()

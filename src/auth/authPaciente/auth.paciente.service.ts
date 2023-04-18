@@ -3,13 +3,12 @@ import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Paciente } from '../../../schemas/paciente';
-import * as bcrypt from 'bcrypt';
 import { CreatePacienteDTO } from '../../paciente/dto/paciente.create.dto';
 import { AuthRegisterPacienteDTO } from '../dtos/auth-register-paciente.dto';
 
 
 @Injectable()
-export class AuthService {
+export class AuthPacienteService {
     private issuer = 'login';
     private audience = 'users';
     constructor(

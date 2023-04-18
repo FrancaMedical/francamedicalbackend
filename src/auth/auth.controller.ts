@@ -17,7 +17,7 @@ export class AuthController {
 
     @UseGuards(AuthGuard)
     @Post('me')
-    async me(@User() user) {
+    async medico(@User() user) {
         return { user };
     }
 }

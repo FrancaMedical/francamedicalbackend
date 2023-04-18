@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MedicoSchema } from '../../schemas/medico.schema';
 import { ConsultaModule } from '../consulta/consulta.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthPacienteModule } from './authPaciente/auth.paciente.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
     forwardRef(() => MedicoModule),
     forwardRef(() => PacienteModule),
     forwardRef(() => ConsultaModule),
+    forwardRef(() => AuthPacienteModule),
     MongooseModule.forFeature([{name: 'CreateMedicoDTO', schema: MedicoSchema}]),
   ],
   providers: [AuthService],
