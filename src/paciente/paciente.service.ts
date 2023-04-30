@@ -23,12 +23,12 @@ export class PacienteService {
     async create(data: CreatePacienteDTO) {
         const password = new Password()
         const cpfvalid = new CPF()
+        if (!cpfvalid.validation(data.cpf)) {
+            throw new NotAcceptableException('CPF inválido.');
+        }
+        
         try {
             data.password = password.gerar()
-
-            if (!cpfvalid.validation(data.cpf)) {
-                throw new NotAcceptableException('CPF inválido.');
-            }
 
             const createdNew = new this.pacienteModel(data);
             return await createdNew.save()
