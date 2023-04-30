@@ -8,7 +8,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MedicoSchema } from '../../schemas/medico.schema';
 import { ConsultaModule } from '../consulta/consulta.module';
 import { ConfigModule } from '@nestjs/config';
-import { AuthPacienteModule } from './authPaciente/auth.paciente.module';
+import { PacienteSchema } from '../../schemas/paciente.schema';
+import { AuthPacienteService } from './auth-paciente.service';
 
 @Module({
   imports: [
@@ -19,11 +20,11 @@ import { AuthPacienteModule } from './authPaciente/auth.paciente.module';
     forwardRef(() => MedicoModule),
     forwardRef(() => PacienteModule),
     forwardRef(() => ConsultaModule),
-    forwardRef(() => AuthPacienteModule),
+    MongooseModule.forFeature([{name: 'CreatePacienteDTO', schema: PacienteSchema}]),
     MongooseModule.forFeature([{name: 'CreateMedicoDTO', schema: MedicoSchema}]),
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthPacienteService],
   controllers: [AuthController],
-  exports: [AuthService]
+  exports: [AuthService, AuthPacienteService]
 })
 export class AuthModule {}

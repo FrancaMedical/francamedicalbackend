@@ -5,6 +5,7 @@ import { ConsultaModule } from './consulta/consulta.module';
 import { MedicoModule } from './medico/medico.module';
 import { PacienteModule } from './paciente/paciente.module';
 import { AuthModule } from './auth/auth.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { AuthModule } from './auth/auth.module';
     PacienteModule,
     ConsultaModule,
     MedicoModule,
-    AuthModule
+    AuthModule,
+    JwtModule
   ],
 })
 export class AppModule {}
