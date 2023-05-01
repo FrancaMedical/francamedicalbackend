@@ -10,12 +10,12 @@ export class ConsultaService{
     constructor(@InjectModel('CreateConsultaDTO') private readonly consultaModel: Model<CreateConsultaDTO>) {}
 
     async getAll(){
-        return await this.consultaModel.find().exec()
+        return await this.consultaModel.find().populate('paciente').exec()
     }
 
     async getById(id: string) {
         await this.exists(id)
-        return await this.consultaModel.findById(id).exec()
+        return (await this.consultaModel.findById(id).exec()).populate('paciente')
     }
 
     async create(data: CreateConsultaDTO) {

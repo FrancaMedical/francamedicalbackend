@@ -32,7 +32,7 @@ export class MedicoService {
 
             return await createdNew.save()
         } catch (error) {
-            if(error.code === 11000){
+            if (error.code === 11000) {
                 throw new NotAcceptableException('CPF já cadastrado.')
             }
             throw new NotAcceptableException(error)
@@ -40,10 +40,21 @@ export class MedicoService {
     }
 
     async update(id: string, data: UpdateMedicoDTO) {
-        await this.exists(id)
-        await this.medicoModel.updateOne({ _id: id }, data).exec();
+        const cpfvalid = new CPF()
+        if (!cpfvalid.validation(data.cpf)) {
+            throw new NotAcceptableException('CPF inválido.');
+        }
+        try {
+            await this.exists(id)
+            await this.medicoModel.updateOne({ _id: id }, data).exec();
 
-        return this.getById(id)
+            return this.getById(id)
+        } catch (error) {
+            if (error.code === 11000) {
+                throw new NotAcceptableException('CPF já cadastrado.')
+            }
+            throw new NotAcceptableException(error)
+        }
     }
 
     async delete(id: string) {

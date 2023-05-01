@@ -1,5 +1,5 @@
 import { IsString, IsOptional } from "class-validator";
-import { Document } from "mongoose";
+import { Document, Schema } from "mongoose";
 
 export class CreateConsultaDTO extends Document {
     @IsString()
@@ -17,4 +17,7 @@ export class CreateConsultaDTO extends Document {
     @IsString()
     @IsOptional()
     descricao: string;
+
+    @IsString()
+    paciente: Schema.Types.ObjectId
 }

@@ -1,58 +1,31 @@
 import * as mongoose from 'mongoose';
+import { addressSchema } from './endereco.schema';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-export const addressSchema = new mongoose.Schema({
-    cep: {
-        type: String,
-        required: true,
-    },
-    rua: {
-        type: String,
-        required: true,
-    },
-    numero: {
-        type: String,
-        required: true,
-    },
-    bairro: {
-        type: String,
-        required: true,
-    },
-    cidade: {
-        type: String,
-        required: true,
-    },
-    estado: {
-        type: String,
-        required: true,
-    },
-})
+export type PacienteDocument = mongoose.HydratedDocument<Paciente>
 
-export const PacienteSchema = new mongoose.Schema({
-    nome: {
-        type: String,
-        required: true,
-    },
-    cpf: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    dataNascimento: {
-        type: String,
-        required: true,
-    },
-    tel: {
-        type: Number,
-        required: true,
-    },
-    role: {
-        type: Number,
-        required: true,
-        default: 3
-    },
-    endereco: [addressSchema],
-    password: {
-        type: String,
-        required: true,
-    }
-})
+@Schema()
+export class Paciente {
+    @Prop({required: true})
+    nome: string
+
+    @Prop({required: true})
+    cpf: string
+
+    @Prop({required: true})
+    dataNascimento: string
+
+    @Prop({required: true})
+    tel: string
+    
+    @Prop({required: true, default: 3})
+    role: number
+    
+    @Prop({required: false, type: addressSchema})
+    endereco: {addressSchema}
+
+    @Prop({required: true})
+    password: string
+}
+
+export const PacienteSchema = SchemaFactory.createForClass(Paciente)

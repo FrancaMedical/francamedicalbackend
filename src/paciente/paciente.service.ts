@@ -41,13 +41,20 @@ export class PacienteService {
     }
 
     async update(id: string, data: UpdatePacienteDTO) {
+        const cpfvalid = new CPF()
+        if (!cpfvalid.validation(data.cpf)) {
+            throw new NotAcceptableException('CPF inválido.');
+        }
         try {
             await this.exists(id)
             await this.pacienteModel.updateOne({ _id: id }, data).exec();
     
             return this.getById(id)   
         } catch (error) {
-            throw new NotFoundException(error)
+            if(error.code === 11000){
+                throw new NotAcceptableException('CPF já cadastrado.')
+            }
+            throw new NotAcceptableException(error)
         }
     }
 

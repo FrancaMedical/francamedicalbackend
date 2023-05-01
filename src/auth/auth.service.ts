@@ -4,11 +4,8 @@ import { CreateMedicoDTO } from '../medico/dto/medico.create.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Medico } from '../../schemas/medico';
-import { Paciente } from '../../schemas/paciente';
 import * as bcrypt from 'bcrypt';
 import { AuthRegisterMedicoDTO } from './dtos/auth-register-medico.dto';
-import { CreatePacienteDTO } from '../paciente/dto/paciente.create.dto';
-
 
 @Injectable()
 export class AuthService {
@@ -17,7 +14,6 @@ export class AuthService {
   constructor(
     private readonly JWRService: JwtService,
     @InjectModel('CreateMedicoDTO') private readonly Medico: Model<CreateMedicoDTO>,
-    @InjectModel('CreatePacienteDTO') private readonly Paciente: Model<CreatePacienteDTO>
   ) { }
 
   createToken(medico: Medico) {

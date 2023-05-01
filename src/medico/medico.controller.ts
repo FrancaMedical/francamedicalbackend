@@ -8,8 +8,7 @@ import { RoleGuard } from "../guards/role.guard";
 import { Roles } from "../decorator/role.decorator";
 import { Role } from "../enums/role.enum";
 
-@Roles(Role.Medico)
-@UseGuards(AuthGuard, RoleGuard)
+
 @Controller('medico')
 export class MedicoController {
     constructor(private readonly medicoService: MedicoService) {}
@@ -19,6 +18,8 @@ export class MedicoController {
         return this.medicoService.getAll()
     }
 
+    @Roles(Role.Medico)
+    @UseGuards(AuthGuard, RoleGuard)
     @Get(':id')
     async getById(@ParamId() id: string) {
         return this.medicoService.getById(id)
@@ -29,6 +30,8 @@ export class MedicoController {
         return this.medicoService.create(data)
     }
 
+    @Roles(Role.Medico)
+    @UseGuards(AuthGuard, RoleGuard)
     @Put(':id')
     async update(@ParamId() id: string,@Body() data: UpdateMedicoDTO) {
         return this.medicoService.update(id, data)

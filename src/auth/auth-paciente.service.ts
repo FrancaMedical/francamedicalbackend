@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateMedicoDTO } from '../medico/dto/medico.create.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Paciente } from '../../schemas/paciente';
@@ -14,7 +13,6 @@ export class AuthPacienteService {
     private audience = 'users';
     constructor(
         private readonly JWRService: JwtService,
-        @InjectModel('CreateMedicoDTO') private readonly Medico: Model<CreateMedicoDTO>,
         @InjectModel('CreatePacienteDTO') private readonly Paciente: Model<CreatePacienteDTO>
     ) { }
 
