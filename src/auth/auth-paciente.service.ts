@@ -22,7 +22,7 @@ export class AuthPacienteService {
                 {
                     id: paciente._id,
                     name: paciente.nome,
-                    email: paciente.cpf,
+                    cpf: paciente.cpf,
                 },
                 {
                     expiresIn: '7 days',
@@ -57,7 +57,7 @@ export class AuthPacienteService {
 
     async login(nome: string) {
         const paciente = await this.Paciente.findOne({ nome: nome }).exec();
-        if (!paciente) throw new UnauthorizedException('Usuário ou senha incorretos.');
+        if (!paciente) throw new UnauthorizedException('Usuário não encontrado.');
 
         return {
             token: this.createToken(paciente),

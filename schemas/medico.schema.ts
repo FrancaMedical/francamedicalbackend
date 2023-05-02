@@ -1,41 +1,37 @@
-import * as mongoose from 'mongoose';
 import { addressSchema } from './endereco.schema';
+import * as mongoose from "mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-export const MedicoSchema = new mongoose.Schema({
-    nome: {
-        type: String,
-        required: true,
-    },
-    cpf: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    dataNascimento: {
-        type: String,
-        required: true,
-    },
-    tel: {
-        type: Number,
-        required: true,
-    },
-    role: {
-        type: Number,
-        required: true,
-        default: 2
-    },
-    crm: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    especialidade: {
-        type: String,
-        required: true,
-    },
-    endereco: [addressSchema],
-    password: {
-        type: String,
-        required: true,
-    }
-})
+export type ConsultaDocument = mongoose.HydratedDocument<Medico>
+
+@Schema()
+export class Medico {
+    @Prop({required: true})
+    nome: string
+
+    @Prop({required: true, unique: true})
+    cpf: string
+
+    @Prop({required: true})
+    dataNascimento: string
+
+    @Prop({required: true})
+    tel: string
+
+    @Prop({required: true, default: 2})
+    role: number
+
+    @Prop({required: true, unique: true})
+    crm: string
+
+    @Prop({required: true})
+    especialidade: string
+
+    @Prop({required: false, type: addressSchema})
+    endereco: {addressSchema}
+
+    @Prop({required: true})
+    password: string
+}
+
+export const MedicoSchema = SchemaFactory.createForClass(Medico)

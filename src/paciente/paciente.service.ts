@@ -12,12 +12,12 @@ export class PacienteService {
     constructor(@InjectModel('CreatePacienteDTO') private readonly pacienteModel: Model<CreatePacienteDTO>) { }
 
     async getAll() {
-        return await this.pacienteModel.find().exec()
+        return await this.pacienteModel.find()
     }
 
     async getById(id: string) {
         await this.exists(id)
-        return await this.pacienteModel.findById(id).exec()
+        return (await this.pacienteModel.findById(id).exec())
     }
 
     async create(data: CreatePacienteDTO) {

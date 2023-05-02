@@ -1,6 +1,8 @@
 import * as mongoose from 'mongoose';
 import { addressSchema } from './endereco.schema';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { CreateConsultaDTO } from '../src/consulta/dto/consulta.create.dto';
+import { Consulta } from './consulta.schema';
 
 export type PacienteDocument = mongoose.HydratedDocument<Paciente>
 
@@ -9,7 +11,7 @@ export class Paciente {
     @Prop({required: true})
     nome: string
 
-    @Prop({required: true})
+    @Prop({required: true, unique: true})
     cpf: string
 
     @Prop({required: true})
