@@ -17,7 +17,7 @@ export class PacienteService {
 
     async getById(id: string) {
         await this.exists(id)
-        return (await this.pacienteModel.findById(id).exec())
+        return await this.pacienteModel.findById(id)
     }
 
     async create(data: CreatePacienteDTO) {

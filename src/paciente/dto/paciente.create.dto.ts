@@ -6,7 +6,7 @@ export class CreatePacienteDTO extends Document {
     nome: string
 
     @IsNumber()
-    tel: number
+    tel: string
 
     @IsString()
     cpf: string

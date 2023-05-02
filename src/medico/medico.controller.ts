@@ -7,6 +7,7 @@ import { AuthGuard } from "../guards/auth.guard";
 import { RoleGuard } from "../guards/role.guard";
 import { Roles } from "../decorator/role.decorator";
 import { Role } from "../enums/role.enum";
+import { ReturnMedicoDTO } from "./dto/return-medico.dto";
 
 
 @Controller('medico')
@@ -14,15 +15,19 @@ export class MedicoController {
     constructor(private readonly medicoService: MedicoService) {}
     
     @Get()
-    async getAll() {
-        return this.medicoService.getAll()
+    async getAll(): Promise<ReturnMedicoDTO[]> {
+        return (
+            await this.medicoService.getAll()
+        ).map((medico) => new ReturnMedicoDTO(medico))
     }
 
     @Roles(Role.Medico)
     @UseGuards(AuthGuard, RoleGuard)
     @Get(':id')
-    async getById(@ParamId() id: string) {
-        return this.medicoService.getById(id)
+    async getById(@ParamId() id: string): Promise<ReturnMedicoDTO> {
+        return new ReturnMedicoDTO(
+            await this.medicoService.getById(id)
+        )
     }
 
     @Post()

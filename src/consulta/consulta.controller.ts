@@ -8,6 +8,7 @@ import { Role } from "../enums/role.enum";
 import { AuthGuard } from "../guards/auth.guard";
 import { RoleGuard } from "../guards/role.guard";
 import { AuthPacienteGuard } from "../guards/auth.paciente.guard";
+import { ReturnConsultaDTO } from "./dto/return-consulta.dto";
 
 @Controller('consulta')
 export class ConsultaController {
@@ -16,15 +17,19 @@ export class ConsultaController {
     @Roles(Role.Medico)
     @UseGuards(AuthGuard, RoleGuard)
     @Get()
-    async getAll() {
-        return this.consultaService.getAll()
+    async getAll(): Promise<ReturnConsultaDTO[]> {
+        return (
+            await this.consultaService.getAll()
+        ).map((consulta) => new ReturnConsultaDTO(consulta))
     }
 
     @Roles(Role.Paciente)
     @UseGuards(AuthPacienteGuard, RoleGuard)
     @Get(':id')
-    async getById(@ParamId() id: string) {
-        return this.consultaService.getById(id)
+    async getById(@ParamId() id: string): Promise<ReturnConsultaDTO> {
+        return new ReturnConsultaDTO(
+            await this.consultaService.getById(id)
+        )
     }
 
     @Roles(Role.Medico)

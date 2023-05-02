@@ -19,5 +19,8 @@ export class CreateConsultaDTO extends Document {
     descricao: string;
 
     @IsString()
-    paciente: Schema.Types.ObjectId
+    paciente: Schema.Types.ObjectId | any
+
+    @IsString()
+    medico: Schema.Types.ObjectId | any
 }

@@ -1,7 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
-import { CreatePacienteDTO } from "../src/paciente/dto/paciente.create.dto";
-import { CreateMedicoDTO } from "../src/medico/dto/medico.create.dto";
 export type ConsultaDocument = mongoose.HydratedDocument<Consulta>
 
 @Schema()
@@ -22,10 +20,10 @@ export class Consulta {
     descricao: string
 
     @Prop({required: true, type: mongoose.Types.ObjectId, ref: 'CreatePacienteDTO'})
-    paciente: CreatePacienteDTO[]
+    paciente: string[]
 
     @Prop({required: true, type: mongoose.Types.ObjectId, ref: 'CreateMedicoDTO'})
-    medico: CreateMedicoDTO[]
+    medico: string[]
 }
 
 export const ConsultaSchema = SchemaFactory.createForClass(Consulta)

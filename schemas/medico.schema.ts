@@ -2,7 +2,7 @@ import { addressSchema } from './endereco.schema';
 import * as mongoose from "mongoose";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-export type ConsultaDocument = mongoose.HydratedDocument<Medico>
+export type MedicoDocument = mongoose.HydratedDocument<Medico>
 
 @Schema()
 export class Medico {

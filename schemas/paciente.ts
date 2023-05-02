@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 
 export class Paciente extends Document {
     nome: string;
-    tel: number;
+    tel: string;
     cpf: string;
     role: number;
     dataNascimento: string;

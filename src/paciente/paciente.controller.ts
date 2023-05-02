@@ -7,6 +7,7 @@ import { Roles } from "../decorator/role.decorator";
 import { Role } from "../enums/role.enum";
 import { AuthPacienteGuard } from "../guards/auth.paciente.guard";
 import { RoleGuard } from "../guards/role.guard";
+import { ReturnPacienteDTO } from "./dto/return-paciente.dto";
 
 @Controller('pacientes')
 export class PacienteController {
@@ -15,15 +16,19 @@ export class PacienteController {
     @Roles(Role.Admin)
     //falta auth-guard-admin
     @Get()
-    async getAll() {
-        return this.pacienteService.getAll()
+    async getAll(): Promise<ReturnPacienteDTO[]>{
+        return(
+            await this.pacienteService.getAll()
+        ).map((paciente) => new ReturnPacienteDTO(paciente))
     }
 
     @Roles(Role.Paciente)
     @UseGuards(AuthPacienteGuard, RoleGuard)
     @Get(':id')
-    async getById(@ParamId() id: string) {
-        return this.pacienteService.getById(id)
+    async getById(@ParamId() id: string): Promise<ReturnPacienteDTO>{
+        return new ReturnPacienteDTO(
+            await this.pacienteService.getById(id)
+        )
     }
 
     @Post()
