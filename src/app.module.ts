@@ -6,16 +6,18 @@ import { MedicoModule } from './medico/medico.module';
 import { PacienteModule } from './paciente/paciente.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URL),
+    ConfigModule.forRoot(),
     PacienteModule,
     ConsultaModule,
     MedicoModule,
+    AdminModule,
     AuthModule,
-    JwtModule
+    JwtModule,
   ],
 })
 export class AppModule {}

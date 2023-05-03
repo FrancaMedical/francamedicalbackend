@@ -5,7 +5,7 @@ import { CreateConsultaDTO } from "./dto/consulta.create.dto";
 import { UpdateConsultaDTO } from "./dto/consulta.update.dto";
 import { Roles } from "../decorator/role.decorator";
 import { Role } from "../enums/role.enum";
-import { AuthGuard } from "../guards/auth.guard";
+import { AuthMedicoGuard } from "../guards/auth.medico.guard";
 import { RoleGuard } from "../guards/role.guard";
 import { AuthPacienteGuard } from "../guards/auth.paciente.guard";
 import { ReturnConsultaDTO } from "./dto/return-consulta.dto";
@@ -15,7 +15,7 @@ export class ConsultaController {
     constructor(private readonly consultaService: ConsultaService) {}
 
     @Roles(Role.Medico)
-    @UseGuards(AuthGuard, RoleGuard)
+    @UseGuards(AuthMedicoGuard, RoleGuard)
     @Get()
     async getAll(): Promise<ReturnConsultaDTO[]> {
         return (
@@ -33,21 +33,21 @@ export class ConsultaController {
     }
 
     @Roles(Role.Medico)
-    @UseGuards(AuthGuard, RoleGuard)
+    @UseGuards(AuthMedicoGuard, RoleGuard)
     @Post()
     async create(@Body() data: CreateConsultaDTO) {
         return this.consultaService.create(data)
     }
     
     @Roles(Role.Medico)
-    @UseGuards(AuthGuard, RoleGuard)
+    @UseGuards(AuthMedicoGuard, RoleGuard)
     @Put(':id')
     async update(@ParamId() id: string,@Body() data: UpdateConsultaDTO) {
         return this.consultaService.update(id, data)
     }
     
     @Roles(Role.Medico)
-    @UseGuards(AuthGuard, RoleGuard)    
+    @UseGuards(AuthMedicoGuard, RoleGuard)    
     @Delete(':id') 
     async delete(@ParamId() id: string) {
         return this.consultaService.delete(id)

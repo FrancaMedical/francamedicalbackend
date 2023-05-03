@@ -5,12 +5,14 @@ import { MedicoController } from "./medico.controller";
 import { MedicoService } from "./medico.service";
 import { AuthModule } from "../auth/auth.module";
 import { PacienteModule } from "../paciente/paciente.module";
+import { AdminModule } from "../admin/admin.module";
 
 @Module({
     imports: [
         MongooseModule.forFeature([{ name: 'CreateMedicoDTO', schema: MedicoSchema }]),
         forwardRef(() => AuthModule),
-        PacienteModule
+        PacienteModule,
+        AdminModule
     ],
     controllers: [MedicoController],
     providers: [MedicoService],

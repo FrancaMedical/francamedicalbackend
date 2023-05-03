@@ -1,14 +1,12 @@
 import {CanActivate, Injectable, ExecutionContext} from '@nestjs/common'
-import { AuthService } from '../auth/auth.service';
-import { MedicoService } from '../medico/medico.service';
-import { PacienteService } from '../paciente/paciente.service';
+import { AuthService } from '../auth/auth-medico.service';
+import { AdminService } from '../admin/admin.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthMedicoGuard implements CanActivate {
     constructor(
         private readonly authService: AuthService,
-        private readonly medicoService: MedicoService,
-        private readonly pacienteService: PacienteService,
+        private readonly adminService: AdminService,
       ) {}
     
       async canActivate(context: ExecutionContext) {
@@ -20,7 +18,7 @@ export class AuthGuard implements CanActivate {
           );
           
           request.tokenPayload = data;
-          request.user = await this.medicoService.getById(data.id);
+          request.user = await this.adminService.getById(data.id);
     
           return request.user;
           ;

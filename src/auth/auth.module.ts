@@ -1,6 +1,6 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth-medico.service';
 import { AuthController } from './auth.controller';
 import { MedicoModule } from '../medico/medico.module';
 import { PacienteModule } from '../paciente/paciente.module';
@@ -10,6 +10,7 @@ import { ConsultaModule } from '../consulta/consulta.module';
 import { ConfigModule } from '@nestjs/config';
 import { PacienteSchema } from '../../schemas/paciente.schema';
 import { AuthPacienteService } from './auth-paciente.service';
+import { AdminModule } from '../admin/admin.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthPacienteService } from './auth-paciente.service';
     forwardRef(() => MedicoModule),
     forwardRef(() => PacienteModule),
     forwardRef(() => ConsultaModule),
+    forwardRef(() => AdminModule),
     MongooseModule.forFeature([{name: 'CreatePacienteDTO', schema: PacienteSchema}]),
     MongooseModule.forFeature([{name: 'CreateMedicoDTO', schema: MedicoSchema}]),
   ],

@@ -3,7 +3,7 @@ import { MedicoService } from "./medico.service";
 import { ParamId } from "../decorator/param-id.decorator";
 import { CreateMedicoDTO } from "./dto/medico.create.dto";
 import { UpdateMedicoDTO } from "./dto/medico.update.dto";
-import { AuthGuard } from "../guards/auth.guard";
+import { AuthMedicoGuard } from "../guards/auth.medico.guard";
 import { RoleGuard } from "../guards/role.guard";
 import { Roles } from "../decorator/role.decorator";
 import { Role } from "../enums/role.enum";
@@ -22,7 +22,7 @@ export class MedicoController {
     }
 
     @Roles(Role.Medico)
-    @UseGuards(AuthGuard, RoleGuard)
+    @UseGuards(AuthMedicoGuard, RoleGuard)
     @Get(':id')
     async getById(@ParamId() id: string): Promise<ReturnMedicoDTO> {
         return new ReturnMedicoDTO(
@@ -36,7 +36,7 @@ export class MedicoController {
     }
 
     @Roles(Role.Medico)
-    @UseGuards(AuthGuard, RoleGuard)
+    @UseGuards(AuthMedicoGuard, RoleGuard)
     @Put(':id')
     async update(@ParamId() id: string,@Body() data: UpdateMedicoDTO) {
         return this.medicoService.update(id, data)

@@ -1,8 +1,8 @@
 import { Controller, Post, Body, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
+import { AuthService } from './auth-medico.service';
 import { AuthLoginDTO } from './dtos/login.dto';
 import { User } from '../decorator/user.decorator';
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthMedicoGuard } from '../guards/auth.medico.guard';
 import { AuthPacienteService } from './auth-paciente.service';
 
 @Controller('auth')
@@ -23,7 +23,7 @@ export class AuthController {
         return this.authPacienteService.login(nome);
     }
 
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthMedicoGuard)
     @Post('me')
     async medico(@User() user) {
         return { user };
