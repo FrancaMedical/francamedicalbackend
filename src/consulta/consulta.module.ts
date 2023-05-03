@@ -6,13 +6,15 @@ import { ConsultaService } from "./consulta.service";
 import { AuthModule } from "../auth/auth.module";
 import { MedicoModule } from "../medico/medico.module";
 import { PacienteModule } from "../paciente/paciente.module";
+import { AdminModule } from "../admin/admin.module";
 
 @Module({
     imports: [
       MongooseModule.forFeature([{name: 'CreateConsultaDTO', schema:ConsultaSchema}]), 
     forwardRef(()=> AuthModule), 
     MedicoModule,
-    PacienteModule
+    PacienteModule,
+    AdminModule
   ],
   controllers: [ConsultaController],
   providers: [ConsultaService]

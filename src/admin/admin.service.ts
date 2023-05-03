@@ -11,6 +11,10 @@ export class AdminService {
     constructor(
         @InjectModel('CreateAdminDTO') private readonly adminModel: Model<CreateAdminDTO>
     ) {}
+    async getAll() {
+        return await this.adminModel.find()
+    }
+
     async getById(id: string) {
         await this.exists(id)
         return await this.adminModel.findById(id)

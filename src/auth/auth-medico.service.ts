@@ -8,7 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { AuthRegisterMedicoDTO } from './dtos/auth-register-medico.dto';
 
 @Injectable()
-export class AuthService {
+export class AuthMedicoService {
   private issuer = 'login';
   private audience = 'users';
   constructor(
@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   async login(nome: string, password: string) {
-    const medico = await this.Medico.findOne({ nome: nome }).exec();
+    const medico = await this.Medico.findOne({ nome: nome });
 
     if (!medico) throw new UnauthorizedException('Usuário ou senha incorretos.');
 

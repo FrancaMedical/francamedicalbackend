@@ -9,13 +9,14 @@ import { AuthMedicoGuard } from "../guards/auth.medico.guard";
 import { RoleGuard } from "../guards/role.guard";
 import { AuthPacienteGuard } from "../guards/auth.paciente.guard";
 import { ReturnConsultaDTO } from "./dto/return-consulta.dto";
+import { AuthAdminGuard } from "../guards/auth.admin.guard";
 
 @Controller('consulta')
 export class ConsultaController {
     constructor(private readonly consultaService: ConsultaService) {}
 
-    @Roles(Role.Medico)
-    @UseGuards(AuthMedicoGuard, RoleGuard)
+    @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
     @Get()
     async getAll(): Promise<ReturnConsultaDTO[]> {
         return (
@@ -32,8 +33,8 @@ export class ConsultaController {
         )
     }
 
-    @Roles(Role.Medico)
-    @UseGuards(AuthMedicoGuard, RoleGuard)
+    @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
     @Post()
     async create(@Body() data: CreateConsultaDTO) {
         return this.consultaService.create(data)
@@ -46,8 +47,8 @@ export class ConsultaController {
         return this.consultaService.update(id, data)
     }
     
-    @Roles(Role.Medico)
-    @UseGuards(AuthMedicoGuard, RoleGuard)    
+    @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
     @Delete(':id') 
     async delete(@ParamId() id: string) {
         return this.consultaService.delete(id)

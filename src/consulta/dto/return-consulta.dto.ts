@@ -4,6 +4,7 @@ import { CreateConsultaDTO } from "./consulta.create.dto";
 
 export class ReturnConsultaDTO {
     constructor(consulta: CreateConsultaDTO){
+        this.id = consulta.id;
         this.nomePaciente = consulta.nomePaciente;
         this.especialidade = consulta.especialidade;
         this.dataConsulta = consulta.dataConsulta;
@@ -15,7 +16,7 @@ export class ReturnConsultaDTO {
 
         this.medico = consulta.medico ? new ReturnMedicoDTO(consulta.medico) : undefined
     }
-
+    id: string;
     nomePaciente: string;
     especialidade: string;
     dataConsulta: string;

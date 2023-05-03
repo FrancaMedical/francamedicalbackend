@@ -1,11 +1,11 @@
 import {CanActivate, Injectable, ExecutionContext} from '@nestjs/common'
-import { AuthService } from '../auth/auth-medico.service';
+import { AuthMedicoService } from '../auth/auth-medico.service';
 import { MedicoService } from '../medico/medico.service';
 
 @Injectable()
 export class AuthMedicoGuard implements CanActivate {
     constructor(
-        private readonly authService: AuthService,
+        private readonly authMedicoService: AuthMedicoService,
         private readonly medicoService: MedicoService,
       ) {}
     
@@ -13,7 +13,7 @@ export class AuthMedicoGuard implements CanActivate {
         const request = context.switchToHttp().getRequest();
         const { authorization } = request.headers;
         try {
-          const data = this.authService.checkToken(
+          const data = this.authMedicoService.checkToken(
             (authorization ?? '').split(' ')[1],
           );
           

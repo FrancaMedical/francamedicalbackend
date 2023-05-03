@@ -8,13 +8,14 @@ import { Role } from "../enums/role.enum";
 import { AuthPacienteGuard } from "../guards/auth.paciente.guard";
 import { RoleGuard } from "../guards/role.guard";
 import { ReturnPacienteDTO } from "./dto/return-paciente.dto";
+import { AuthAdminGuard } from "../guards/auth.admin.guard";
 
 @Controller('pacientes')
 export class PacienteController {
     constructor(private readonly pacienteService: PacienteService) {}
 
     @Roles(Role.Admin)
-    //falta auth-guard-admin
+    @UseGuards(AuthAdminGuard, RoleGuard)
     @Get()
     async getAll(): Promise<ReturnPacienteDTO[]>{
         return(
@@ -31,18 +32,22 @@ export class PacienteController {
         )
     }
 
+    @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
     @Post()
     async create(@Body() data: CreatePacienteDTO) {
         return this.pacienteService.create(data)
     }
 
     @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
     @Put(':id')
     async update(@ParamId() id: string,@Body() data: UpdatePacienteDTO) {
         return this.pacienteService.update(id, data)
     }
 
     @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
     @Delete(':id') 
     async delete(@ParamId() id: string) {
         return this.pacienteService.delete(id)

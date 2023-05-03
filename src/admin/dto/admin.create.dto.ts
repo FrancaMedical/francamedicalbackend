@@ -5,6 +5,9 @@ export class CreateAdminDTO extends Document {
     @IsString()
     nome: string
 
+    @IsString()
+    email: string
+
     @IsNumber()
     tel: string 
 
@@ -23,10 +26,4 @@ export class CreateAdminDTO extends Document {
 
     @IsString()
     password: string
-
-    @IsString()
-    especialidade: string
-
-    @IsString()
-    crm: string
 }
