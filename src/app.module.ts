@@ -7,6 +7,7 @@ import { PacienteModule } from './paciente/paciente.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AdminModule } from './admin/admin.module';
+import { FileModule } from './files/file.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { AdminModule } from './admin/admin.module';
     MedicoModule,
     AdminModule,
     AuthModule,
+    FileModule,
     JwtModule,
   ],
 })
