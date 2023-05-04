@@ -40,13 +40,16 @@ export class AdminService {
     }
 
     async update(id: string, data: UpdateAdminDTO) {
-        const cpfvalid = new CPF()
+        const cpfvalid = new CPF();
+        const salt = await bcrypt.genSalt();
         if (!cpfvalid.validation(data.cpf)) {
             throw new NotAcceptableException('CPF inválido.');
         }
         
         try {
             await this.exists(id)
+
+            data.password = await bcrypt.hash(data.password, salt);
             await this.adminModel.updateOne({_id: id}, data).exec()
             return this.getById(id)
         } catch (error) {

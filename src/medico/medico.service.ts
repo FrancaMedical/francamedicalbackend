@@ -41,11 +41,13 @@ export class MedicoService {
 
     async update(id: string, data: UpdateMedicoDTO) {
         const cpfvalid = new CPF()
+        const salt = await bcrypt.genSalt();
         if (!cpfvalid.validation(data.cpf)) {
             throw new NotAcceptableException('CPF inválido.');
         }
         try {
             await this.exists(id)
+            data.password = await bcrypt.hash(data.password, salt);
             await this.medicoModel.updateOne({ _id: id }, data).exec();
 
             return this.getById(id)
