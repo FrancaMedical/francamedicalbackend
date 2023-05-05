@@ -26,6 +26,12 @@ export class Admin {
 
     @Prop({required: true})
     password: string
+
+    @Prop({required: true, default: new Date()})
+    createdAt: Date
+
+    @Prop({required: true, default: new Date()})
+    updatedAt: Date
 }
 
 export const AdminSchema = SchemaFactory.createForClass(Admin)

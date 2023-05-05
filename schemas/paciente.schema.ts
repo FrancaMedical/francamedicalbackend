@@ -23,6 +23,12 @@ export class Paciente {
 
     @Prop({required: true})
     password: string
+
+    @Prop({required: true, default: new Date()})
+    createdAt: Date
+
+    @Prop({required: true, default: new Date()})
+    updatedAt: Date
 }
 
 export const PacienteSchema = SchemaFactory.createForClass(Paciente)

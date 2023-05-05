@@ -23,6 +23,12 @@ export class Consulta {
 
     @Prop({required: true, type: mongoose.Types.ObjectId, ref: 'CreateMedicoDTO'})
     medico: string[]
+
+    @Prop({required: true, default: new Date()})
+    createdAt: Date
+
+    @Prop({required: true, default: new Date()})
+    updatedAt: Date
 }
 
 export const ConsultaSchema = SchemaFactory.createForClass(Consulta)
