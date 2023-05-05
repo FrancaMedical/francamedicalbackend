@@ -33,6 +33,15 @@ export class ConsultaController {
         )
     }
 
+    @Roles(Role.Paciente)
+    @UseGuards(AuthPacienteGuard, RoleGuard)
+    @Get('admin/:id')
+    async getIdWithAdmin(@ParamId() id: string): Promise<ReturnConsultaDTO> {
+        return new ReturnConsultaDTO(
+            await this.consultaService.getById(id)
+        )
+    }
+
     @Roles(Role.Admin)
     @UseGuards(AuthAdminGuard, RoleGuard)
     @Post()

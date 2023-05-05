@@ -24,10 +24,10 @@ export class MedicoController {
         ).map((medico) => new ReturnMedicoDTO(medico))
     }
 
-    @Roles(Role.Medico)
-    @UseGuards(AuthMedicoGuard, RoleGuard)
-    @Get(':id')
-    async getById(@ParamId() id: string): Promise<ReturnMedicoDTO> {
+    @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
+    @Get('admin/:id')
+    async getIdWithAdmin(@ParamId() id: string): Promise<ReturnMedicoDTO> {
         return new ReturnMedicoDTO(
             await this.medicoService.getById(id)
         )
@@ -40,6 +40,22 @@ export class MedicoController {
         return this.medicoService.create(data)
     }
 
+    @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
+    @Delete(':id')
+    async delete(@ParamId() id: string) {
+        return this.medicoService.delete(id)
+    }
+
+    @Roles(Role.Medico)
+    @UseGuards(AuthMedicoGuard, RoleGuard)
+    @Get(':id')
+    async getById(@ParamId() id: string): Promise<ReturnMedicoDTO> {
+        return new ReturnMedicoDTO(
+            await this.medicoService.getById(id)
+        )
+    }
+
     @Roles(Role.Medico)
     @UseGuards(AuthMedicoGuard, RoleGuard)
     @Put(':id')
@@ -47,10 +63,4 @@ export class MedicoController {
         return this.medicoService.update(id, data)
     }
 
-    @Roles(Role.Admin)
-    @UseGuards(AuthAdminGuard, RoleGuard)
-    @Delete(':id')
-    async delete(@ParamId() id: string) {
-        return this.medicoService.delete(id)
-    }
 }

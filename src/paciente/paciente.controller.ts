@@ -23,10 +23,10 @@ export class PacienteController {
         ).map((paciente) => new ReturnPacienteDTO(paciente))
     }
 
-    @Roles(Role.Paciente)
-    @UseGuards(AuthPacienteGuard, RoleGuard)
-    @Get(':id')
-    async getById(@ParamId() id: string): Promise<ReturnPacienteDTO>{
+    @Roles(Role.Admin)
+    @UseGuards(AuthAdminGuard, RoleGuard)
+    @Get('admin/:id')
+    async getIdWithAdmin(@ParamId() id: string): Promise<ReturnPacienteDTO>{
         return new ReturnPacienteDTO(
             await this.pacienteService.getById(id)
         )
@@ -51,5 +51,14 @@ export class PacienteController {
     @Delete(':id') 
     async delete(@ParamId() id: string) {
         return this.pacienteService.delete(id)
+    }
+
+    @Roles(Role.Paciente)
+    @UseGuards(AuthPacienteGuard, RoleGuard)
+    @Get(':id')
+    async getById(@ParamId() id: string): Promise<ReturnPacienteDTO>{
+        return new ReturnPacienteDTO(
+            await this.pacienteService.getById(id)
+        )
     }
 }
