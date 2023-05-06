@@ -24,12 +24,12 @@ import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-          user: 'leonor37@ethereal.email',
-          pass: 'vdgQQGEXnjqNbVWja3'
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
         }
       },
       defaults: {
-        from: '"nest-modules" <leonor37@ethereal.email>'
+        from: `"nest-modules" <${process.env.EMAIL_USER}>`
       },
       template: {
         dir: __dirname + '/templates',

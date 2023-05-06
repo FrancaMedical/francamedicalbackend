@@ -27,15 +27,16 @@ export class PacienteService {
     async create(data: CreatePacienteDTO) {
         const password = new Password()
         const cpfvalid = new CPF()
+        data.password = password.gerar()
+
         if (!cpfvalid.validation(data.cpf)) {
             throw new NotAcceptableException('CPF inválido.');
         }
 
         try {
-            data.password = password.gerar()
             await this.mailer.sendMail({
                 subject: 'Senha para efetuar seu login',
-                to: 'teste@gmail.com',
+                to: process.env.EMAIL_TO_MAILER,
                 template: 'password',
                 context: {
                     password: data.password,
