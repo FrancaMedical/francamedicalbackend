@@ -5,11 +5,15 @@ import { Injectable } from "@nestjs/common/decorators";
 import { CreatePacienteDTO } from "./dto/paciente.create.dto";
 import { UpdatePacienteDTO } from "./dto/paciente.update.dto";
 import { Password } from '../utils/random.password'
+import { MailerService } from '@nestjs-modules/mailer';
 import { CPF } from "../utils/validate.cpf";
 
 @Injectable()
 export class PacienteService {
-    constructor(@InjectModel('CreatePacienteDTO') private readonly pacienteModel: Model<CreatePacienteDTO>) { }
+    constructor(
+        @InjectModel('CreatePacienteDTO') private readonly pacienteModel: Model<CreatePacienteDTO>,
+        private readonly mailer: MailerService,
+    ) { }
 
     async getAll() {
         return await this.pacienteModel.find()
@@ -26,14 +30,23 @@ export class PacienteService {
         if (!cpfvalid.validation(data.cpf)) {
             throw new NotAcceptableException('CPF inválido.');
         }
-        
+
         try {
             data.password = password.gerar()
+            await this.mailer.sendMail({
+                subject: 'Senha para efetuar seu login',
+                to: 'teste@gmail.com',
+                template: 'password',
+                context: {
+                    password: data.password,
+                    nome: data.nome
+                },
+            })
 
             const createdNew = new this.pacienteModel(data);
             return await createdNew.save()
         } catch (error) {
-            if(error.code === 11000){
+            if (error.code === 11000) {
                 throw new NotAcceptableException('CPF já cadastrado.')
             }
             throw new NotAcceptableException(error)
@@ -48,10 +61,10 @@ export class PacienteService {
         try {
             await this.exists(id)
             await this.pacienteModel.updateOne({ _id: id }, data).exec();
-    
-            return this.getById(id)   
+
+            return this.getById(id)
         } catch (error) {
-            if(error.code === 11000){
+            if (error.code === 11000) {
                 throw new NotAcceptableException('CPF já cadastrado.')
             }
             throw new NotAcceptableException(error)

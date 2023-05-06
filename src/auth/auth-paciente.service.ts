@@ -55,8 +55,8 @@ export class AuthPacienteService {
         }
     }
 
-    async login(nome: string) {
-        const paciente = await this.Paciente.findOne({ nome: nome }).exec();
+    async login(nome: string, password: string) {
+        const paciente = await this.Paciente.findOne({ password: password, nome: nome}).exec();
         if (!paciente) throw new UnauthorizedException('Usuário não encontrado.');
 
         return {

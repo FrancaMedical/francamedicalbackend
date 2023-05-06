@@ -30,8 +30,8 @@ export class AuthController {
     }
 
     @Post('login/pacientes')
-    async medico(@Body() { nome }: AuthLoginDTO) {
-        return this.authPacienteService.login(nome);
+    async medico(@Body() { nome, password }: AuthLoginDTO) {
+        return this.authPacienteService.login(nome, password);
     }
 
     @UseGuards(AuthAdminGuard)
