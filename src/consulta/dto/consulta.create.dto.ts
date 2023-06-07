@@ -1,26 +1,29 @@
-import { IsString, IsOptional } from "class-validator";
-import { Document, Schema } from "mongoose";
+import { IsString, IsOptional } from 'class-validator';
+import { Document, Schema } from 'mongoose';
 
 export class CreateConsultaDTO extends Document {
-    @IsString()
-    nomePaciente: string;
+  @IsString()
+  nomePaciente: string;
 
-    @IsString()
-    especialidade: string;
-    
-    @IsString()
-    dataConsulta: string;
+  @IsString()
+  nomeMedico: string;
 
-    @IsString()
-    horario: string;
+  @IsString()
+  especialidade: string;
 
-    @IsString()
-    @IsOptional()
-    descricao: string;
+  @IsString()
+  dataConsulta: string;
 
-    @IsString()
-    paciente: Schema.Types.ObjectId | any
+  @IsString()
+  horario: string;
 
-    @IsString()
-    medico: Schema.Types.ObjectId | any
+  @IsString()
+  @IsOptional()
+  descricao: string;
+
+  @IsString()
+  paciente: Schema.Types.ObjectId | any;
+
+  @IsString()
+  medico: Schema.Types.ObjectId | any;
 }
